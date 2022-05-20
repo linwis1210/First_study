@@ -10,7 +10,7 @@
 clip < ~/.ssh/id_rsa.pub
 ```
 
-- 打开github，在setting中添加SSH keys
+- 打开github，在setting中添加SSH keys，克隆记得使用SSH
 
 - ```
   git clone 
