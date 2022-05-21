@@ -22,7 +22,8 @@ clip < ~/.ssh/id_rsa.pub
   git commit -m "balaba"
   git status
   git push -u origin main/master
-  ```
-
+  git pull
+```
+  
   
 
