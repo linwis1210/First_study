@@ -1,32 +1,30 @@
-<a name="index">**Index**</a> 
-
-&emsp;<a href="#1">机器学习基础</a>  
-
-&emsp;<a href="#2">归一化和标准化</a>  
-&emsp;<a href="#3">正则化</a>  
-<a href="#4">深度学习基础</a>  
-&emsp;<a href="#5">一维、二维、三维卷积</a>  
-&emsp;<a href="#6">梯度消失与梯度爆炸</a>  
-&emsp;<a href="#7">loss权重设计</a>  
-&emsp;<a href="#8">多标签分类，二分类，多分类</a>  
-&emsp;<a href="#9">Batchnorm</a>  
-&emsp;<a href="#10">SGD</a>  
-&emsp;<a href="#12">MaxPooling</a>  
-&emsp;<a href="#15">Avg Pooling</a>   
-&emsp;<a href="#17">CONV</a>  
-&emsp;<a href="#22">BN</a>  
-&emsp;<a href="#37">深度度量学习</a>  
-<a href="#38">CV note</a>  
-&emsp;<a href="#39">分组卷积</a>  
-&emsp;<a href="#40">空洞卷积(Dilated Convolution)</a>  
-&emsp;<a href="#41">FPN](https://zhuanlan.zhihu.com/p/397293649)(特征金字塔网络)</a>  
-&emsp;<a href="#42">金字塔与SSD的区别</a>  
+- [ 目录](#head1)
+- [<span id = "1"> 机器学习基础</span>](#head2)
+	- [ 归一化和标准化](#head3)
+	- [ 正则化](#head4)
+- [ 深度学习基础](#head5)
+	- [ 一维、二维、三维卷积](#head6)
+	- [ 梯度消失与梯度爆炸](#head7)
+	- [ loss权重设计](#head8)
+	- [ 多标签分类，二分类，多分类](#head9)
+	- [ Batchnorm](#head10)
+	- [ SGD](#head11)
+	- [ MaxPooling](#head12)
+	- [Avg Pooling](#head13)
+	- [ CONV](#head14)
+	- [ BN](#head15)
+	- [ 深度度量学习](#head16)
+- [CV note](#head17)
+	- [ 分组卷积](#head18)
+	- [空洞卷积(Dilated Convolution)](#head19)
+	- [ FPN（特征金字塔网络)](#head20)
+	- [ 金字塔与SSD的区别](#head21)
 
 
 
-# <a name="1">机器学习基础</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+# <span id="head2"><span id = "1"> 机器学习基础</span></span>
 
-## <a name="2">归一化和标准化</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head3"> 归一化和标准化</span>
 
 - 归一化：
   $$
@@ -39,7 +37,7 @@
   $$
   
 
-## <a name="3">正则化</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head4"> 正则化</span>
 
 - 可以规范权重参数的值，让权重参数倾向于0，消除一些权重参数的影响，达到dropout的效果，避免过拟合。
 - 常用的是L2正则化，L1正则化，dropout。
@@ -47,9 +45,9 @@
 
 
 
-# <a name="4">深度学习基础</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+# <span id="head5"> 深度学习基础</span>
 
-## <a name="5">一维、二维、三维卷积</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head6"> 一维、二维、三维卷积</span>
 
 - 一维卷积：只在一个方向移动的卷积
   - ![img](http://5b0988e595225.cdn.sohucs.com/images/20180427/0b24d32d46ef48159aed54a60eba2f68.png)
@@ -62,7 +60,7 @@
 
   ![img](https://pic3.zhimg.com/v2-86e2bd970d07f9d6e1d921b248e45a3a_b.jpg)
 
-## <a name="6">梯度消失与梯度爆炸</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head7"> 梯度消失与梯度爆炸</span>
 
 - 梯度消失：主要是网络层数过多，或使用了不合适的激活函数，如Sigmoid导致的每层激活函数都会缩放到一个-1,1的区间，都乘以这个数字，因此会越乘越小。
   
@@ -74,19 +72,19 @@
 
   
 
-## <a name="7">loss权重设计</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head8"> loss权重设计</span>
 
 - 反传过程中，是 loss 对 参数求偏导，乘以-的lr，加上原来的参数，也就是说，如果给loss 加一个权重，如果给一个大权重，最终这个权重相当于乘到了lr上，也就是加大了lr。需要lr大的可以加大的loss权重，需要学的慢一点就加小的权重。
 
 
 
-## <a name="8">多标签分类，二分类，多分类</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head9"> 多标签分类，二分类，多分类</span>
 
 - 多标签分类和 二分类，用sigmod+bceloss
 - 多分类用 softmax + crossentropyloss，或linear层加crossentropyloss
 - 多分类一般认为分类的目标只有一个，而多标签分类用于分类的目标多个，如在yolov3中将多分类loss 改成了多标签分类loss，考虑到在同一个框中的物体，可能会属于多个类别。
 
-## <a name="9">Batchnorm</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head10"> Batchnorm</span>
 
 - 训练时：计算一个mini-batch之内的均值和方差
 - 测试时：用之前所有batch的平均的均值和方差
@@ -102,7 +100,7 @@
 
 
 
-## <a name="10">SGD</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head11"> SGD</span>
 
 ```python
 def cal_dx(func,x,eps=1e-8):
@@ -117,7 +115,7 @@ def solve(func,x,lr=0.01,num_iters=10000):
     d_func = func(x)-0
     grad_x = d_func*dx
     x = x - grad_x*lr
-    # <a name="11">print('iter{.4d}: x={.4f}'.format(i,x))</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+    # print('iter{.4d}: x={.4f}'.format(i,x))
     return x
 
 def check(func,x,eps=1e-8):
@@ -136,7 +134,7 @@ if __name__ == '__main__':
 
 
 
-## <a name="12">MaxPooling</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head12"> MaxPooling</span>
 
 ```python
 class MaxPooling2D:
@@ -153,7 +151,7 @@ class MaxPooling2D:
 
         self.out_height = None
         self.out_width = None
-        # <a name="13">要记录下在当前的滑动窗中最大值的索引，反向求导要用到</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+        # 要记录下在当前的滑动窗中最大值的索引，反向求导要用到
         self.arg_max = None
 
     def __call__(self, x):
@@ -187,7 +185,7 @@ class MaxPooling2D:
                 start_j = j * self.stride
                 end_i = start_i + self.w_height
                 end_j = start_j + self.w_width
-                # <a name="14">将索引展开成二维的</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+                # 将索引展开成二维的
                 index = np.unravel_index(self.arg_max[i, j], self.kernel_size)
                 dx[start_i:end_i, start_j:end_j][index] = d_loss[i, j] #
         return dx
@@ -195,7 +193,7 @@ class MaxPooling2D:
 
 
 
-## <a name="15">Avg Pooling</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head13">Avg Pooling</span>
 
 ```python
 class AvgPooling2D:
@@ -255,7 +253,6 @@ class AvgPooling2D:
   
   dx_numpy = max_pool_numpy.backward(d_loss_numpy[0, 0])
   dx_tensor = x_tensor.grad
-  # <a name="16">print('input \n', x_numpy)</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
   print("out_numpy \n", out_numpy)
   print("out_tensor \n", out_tensor.data.numpy())
   
@@ -263,16 +260,12 @@ class AvgPooling2D:
   print("dx_tensor \n", dx_tensor.data.numpy())
   ```
 
-
-
-## <a name="17">CONV</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head14"> CONV</span>
 
 ```python
 import numpy as np
-
-
 def conv_naive(x, out_c, ksize, padding=0, stride=1):
-    # <a name="18">x = [b, h, w, in_c]</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+    # x = [b, h, w, in_c]
     b, in_c, h, w = x.shape
     kernel = np.random.rand(ksize, ksize, in_c, out_c)
     if padding > 0:
@@ -288,9 +281,9 @@ def conv_naive(x, out_c, ksize, padding=0, stride=1):
     for i in range(out_h):
         for j in range(out_w):
             roi_x = pad_x[:,:,i*stride:i*stride+ksize,j*stride:j*stride+ksize]
-            # <a name="19">roi_x = [b, in_c, ksize, ksize, in_c] -> [b, in_c, ksize, ksize, out_c]</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
-            # <a name="20">kernel = [ksize, ksize, in_c, out_c]</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
-            # <a name="21">conv = [b, ksize, ksize, in_c, out_c] -> [b, 1, 1, out_c]</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+            # roi_x = [b, in_c, ksize, ksize, in_c] -> [b, in_c, ksize, ksize, out_c]
+            # kernel = [ksize, ksize, in_c, out_c]
+            # conv = [b, ksize, ksize, in_c, out_c] -> [b, 1, 1, out_c]
             conv = np.tile(np.expand_dims(roi_x, -1), (1,1,1,1,out_c))* np.transpose(kernel, axes=(2,0,1,3))
             out[:,:,i,j] = np.squeeze(np.sum(conv, axis=(1,2,3), keepdims=True), axis=1)
     return out
@@ -303,59 +296,59 @@ if __name__ == '__main__':
 
 
 
-## <a name="22">BN</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head15"> BN</span>
 
 ```python
 import torch
 from torch import nn
 
 def batch_norm(X, gamma, beta, moving_mean, moving_var, eps, momentum):
-    # <a name="23">通过is_grad_enabled来判断当前模式是训练模式还是预测模式</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+    # 通过is_grad_enabled来判断当前模式是训练模式还是预测模式
     if not torch.is_grad_enabled():
-        # <a name="24">如果是在预测模式下，直接使用传入的移动平均所得的均值和方差</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+        # 如果是在预测模式下，直接使用传入的移动平均所得的均值和方差
         X_hat = (X - moving_mean) / torch.sqrt(moving_var + eps)
     else:
         assert len(X.shape) in (2, 4)
         if len(X.shape) == 2:
-            # <a name="25">使用全连接层的情况，计算特征维上的均值和方差</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+            # 使用全连接层的情况，计算特征维上的均值和方差
             mean = X.mean(dim=0)
             var = ((X - mean) ** 2).mean(dim=0)
         else:
-            # <a name="26">使用二维卷积层的情况，计算通道维上（axis=1）的均值和方差。</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
-            # <a name="27">这里我们需要保持X的形状以便后面可以做广播运算</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+            # 使用二维卷积层的情况，计算通道维上（axis=1）的均值和方差。
+            # 这里我们需要保持X的形状以便后面可以做广播运算
             mean = X.mean(dim=(0, 2, 3), keepdim=True)
             var = ((X - mean) ** 2).mean(dim=(0, 2, 3), keepdim=True)
-        # <a name="28">训练模式下，用当前的均值和方差做标准化</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+        # 训练模式下，用当前的均值和方差做标准化
         X_hat = (X - mean) / torch.sqrt(var + eps)
-        # <a name="29">更新移动平均的均值和方差</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+        # 更新移动平均的均值和方差
         moving_mean = momentum * moving_mean + (1.0 - momentum) * mean
         moving_var = momentum * moving_var + (1.0 - momentum) * var
     Y = gamma * X_hat + beta  # 缩放和移位
     return Y, moving_mean.data, moving_var.data
 
 class BatchNorm(nn.Module):
-    # <a name="30">num_features：完全连接层的输出数量或卷积层的输出通道数。</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
-    # <a name="31">num_dims：2表示完全连接层，4表示卷积层</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+    # num_features：完全连接层的输出数量或卷积层的输出通道数。
+    # num_dims：2表示完全连接层，4表示卷积层
     def __init__(self, num_features, num_dims):
         super().__init__()
         if num_dims == 2:
             shape = (1, num_features)
         else:
             shape = (1, num_features, 1, 1)
-        # <a name="32">参与求梯度和迭代的拉伸和偏移参数，分别初始化成1和0</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+        # 参与求梯度和迭代的拉伸和偏移参数，分别初始化成1和0
         self.gamma = nn.Parameter(torch.ones(shape))
         self.beta = nn.Parameter(torch.zeros(shape))
-        # <a name="33">非模型参数的变量初始化为0和1</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+        # 非模型参数的变量初始化为0和1
         self.moving_mean = torch.zeros(shape)
         self.moving_var = torch.ones(shape)
 
     def forward(self, X):
-        # <a name="34">如果X不在内存上，将moving_mean和moving_var</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
-        # <a name="35">复制到X所在显存上</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+        # 如果X不在内存上，将moving_mean和moving_var
+        # 复制到X所在显存上
         if self.moving_mean.device != X.device:
             self.moving_mean = self.moving_mean.to(X.device)
             self.moving_var = self.moving_var.to(X.device)
-        # <a name="36">保存更新过的moving_mean和moving_var</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+        # 保存更新过的moving_mean和moving_var
         Y, self.moving_mean, self.moving_var = batch_norm(
             X, self.gamma, self.beta, self.moving_mean,
             self.moving_var, eps=1e-5, momentum=0.9)
@@ -366,25 +359,26 @@ class BatchNorm(nn.Module):
 
 
 
-## <a name="37">深度度量学习</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head16"> 深度度量学习</span>
 
 - triplet loss
 
 
 
-# <a name="38">CV note</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+# <span id="head17">CV note</span>
 
-## <a name="39">分组卷积</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head18"> 分组卷积</span>
 
 
 
-## <a name="40">空洞卷积(Dilated Convolution)</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head19">空洞卷积(Dilated Convolution)</span>
 
-## <a name="41">[FPN](https://zhuanlan.zhihu.com/p/397293649)(特征金字塔网络)</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head20"> FPN（特征金字塔网络)</span>
 
 - 先下采样得到多层特征，用深层特征与做上采样，与之前同等大小的底层feature融合，因此金字塔结构可以既包含底层语义又包含高级语义
+- https://zhuanlan.zhihu.com/p/397293649
 
-## <a name="42">金字塔与SSD的区别</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <span id="head21"> 金字塔与SSD的区别</span>
 
 - 金字塔是多个不同层的特征融合成一个size，SSD是不融合，直接用多个size去做预测
 
@@ -392,3 +386,4 @@ class BatchNorm(nn.Module):
 
 
 
+## 1111
