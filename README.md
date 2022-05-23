@@ -10,11 +10,7 @@
 
 # 深度学习基础
 
-------
-
 ## 一维、二维、三维卷积
-
-------
 
 - 一维卷积：只在一个方向移动的卷积
   - ![img](http://5b0988e595225.cdn.sohucs.com/images/20180427/0b24d32d46ef48159aed54a60eba2f68.png)
@@ -27,13 +23,11 @@
 
   ![img](https://pic3.zhimg.com/v2-86e2bd970d07f9d6e1d921b248e45a3a_b.jpg)
 
-##### 分组卷积
-
-------
+## 分组卷积
 
 
 
-##### 空洞卷积(Dilated Convolution)
+## 空洞卷积(Dilated Convolution)
 
 
 
