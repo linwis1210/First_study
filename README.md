@@ -1,6 +1,7 @@
-<a name="index">**Index**</a>
-<a href="#0">目录</a>  
-<a href="#1">机器学习基础</a>  
+<a name="index">**Index**</a> 
+
+&emsp;<a href="#1">机器学习基础</a>  
+
 &emsp;<a href="#2">归一化和标准化</a>  
 &emsp;<a href="#3">正则化</a>  
 <a href="#4">深度学习基础</a>  
@@ -10,39 +11,16 @@
 &emsp;<a href="#8">多标签分类，二分类，多分类</a>  
 &emsp;<a href="#9">Batchnorm</a>  
 &emsp;<a href="#10">SGD</a>  
-<a href="#11">  # print('iter{.4d}: x={.4f}'.format(i,x))</a>  
 &emsp;<a href="#12">MaxPooling</a>  
-<a href="#13">      # 要记录下在当前的滑动窗中最大值的索引，反向求导要用到</a>  
-<a href="#14">              # 将索引展开成二维的</a>  
-&emsp;<a href="#15">Avg Pooling</a>  
-<a href="#16"># print('input \n', x_numpy)</a>  
+&emsp;<a href="#15">Avg Pooling</a>   
 &emsp;<a href="#17">CONV</a>  
-<a href="#18">  # x = [b, h, w, in_c]</a>  
-<a href="#19">          # roi_x = [b, in_c, ksize, ksize, in_c] -> [b, in_c, ksize, ksize, out_c]</a>  
-<a href="#20">          # kernel = [ksize, ksize, in_c, out_c]</a>  
-<a href="#21">          # conv = [b, ksize, ksize, in_c, out_c] -> [b, 1, 1, out_c]</a>  
 &emsp;<a href="#22">BN</a>  
-<a href="#23">  # 通过is_grad_enabled来判断当前模式是训练模式还是预测模式</a>  
-<a href="#24">      # 如果是在预测模式下，直接使用传入的移动平均所得的均值和方差</a>  
-<a href="#25">          # 使用全连接层的情况，计算特征维上的均值和方差</a>  
-<a href="#26">          # 使用二维卷积层的情况，计算通道维上（axis=1）的均值和方差。</a>  
-<a href="#27">          # 这里我们需要保持X的形状以便后面可以做广播运算</a>  
-<a href="#28">      # 训练模式下，用当前的均值和方差做标准化</a>  
-<a href="#29">      # 更新移动平均的均值和方差</a>  
-<a href="#30">  # num_features：完全连接层的输出数量或卷积层的输出通道数。</a>  
-<a href="#31">  # num_dims：2表示完全连接层，4表示卷积层</a>  
-<a href="#32">      # 参与求梯度和迭代的拉伸和偏移参数，分别初始化成1和0</a>  
-<a href="#33">      # 非模型参数的变量初始化为0和1</a>  
-<a href="#34">      # 如果X不在内存上，将moving_mean和moving_var</a>  
-<a href="#35">      # 复制到X所在显存上</a>  
-<a href="#36">      # 保存更新过的moving_mean和moving_var</a>  
 &emsp;<a href="#37">深度度量学习</a>  
 <a href="#38">CV note</a>  
 &emsp;<a href="#39">分组卷积</a>  
 &emsp;<a href="#40">空洞卷积(Dilated Convolution)</a>  
-&emsp;<a href="#41">[FPN](https://zhuanlan.zhihu.com/p/397293649)(特征金字塔网络)</a>  
+&emsp;<a href="#41">FPN](https://zhuanlan.zhihu.com/p/397293649)(特征金字塔网络)</a>  
 &emsp;<a href="#42">金字塔与SSD的区别</a>  
-# <a name="0">目录</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 
 
