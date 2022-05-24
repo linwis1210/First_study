@@ -13,14 +13,14 @@
 	- [Avg Pooling](#head13)
 	- [ CONV](#head14)
 	- [ BN](#head15)
-	- [ 深度度量学习](#head16)
-- [CV note](#head17)
-	- [ 分组卷积](#head18)
-	- [空洞卷积(Dilated Convolution)](#head19)
-	- [ FPN（特征金字塔网络)](#head20)
-	- [ 金字塔与SSD的区别](#head21)
-
-
+	- [ Loss函数](#head16)
+	- [ 深度度量学习](#head17)
+- [CV note](#head18)
+	- [ 分组卷积](#head19)
+	- [空洞卷积(Dilated Convolution)](#head20)
+	- [ FPN（特征金字塔网络)](#head21)
+	- [ 金字塔与SSD的区别](#head22)
+# <span id="head1"> 目录</span>
 
 # <span id="head2"><span id = "1"> 机器学习基础</span></span>
 
@@ -357,28 +357,54 @@ class BatchNorm(nn.Module):
 
 
 
+## <span id="head16"> Loss函数</span>
 
+- Dice Loss
 
-## <span id="head16"> 深度度量学习</span>
+  - Dice系数原理：一种集合相似度度量指标，通常用于计算两个样本的相似度，值阈为[0, 1]。计算公式如下：
+
+    ![img](https://www.zhihu.com/equation?tex=Dice+%3D+%5Cfrac%7B2+%2A+%28pred+%5Cbigcap+true%29%7D%7Bpred+%5Cbigcup+true%7D)
+
+  - Dice Loss原理:
+
+    ![img](https://www.zhihu.com/equation?tex=Dice+%3D+1+-+%5Cfrac%7B2+%2A+%28pred+%5Cbigcap+true%29%7D%7Bpred+%5Cbigcup+true%7D)
+
+  - 对正负样本严重不平衡的场景有着不错的性能
+
+  - 一种区域相关的loss，像素点的loss以及梯度值不仅和该点的label以及预测值相关，和其他点的label以及预测值也相关
+
+  - https://www.freesion.com/article/799887071/
+
+- Focal Loss
+
+  - 容易学习的样本模型可以很轻松地将其预测正确，模型只要将大量容易学习的样本分类正确，loss就可以减小很多，从而导致模型不怎么顾及难学习的样本，所以我们要想办法让模型更加关注难学习的样本。对于较难学习的样本，将 BCE Loss 修改为：
+
+    ![img](https://mmbiz.qpic.cn/mmbiz_png/AIR6eRePgjPSX60xFEp8lg3jKtBVlR05b5u6kErt8FDfEDgjYMOP3RVxkN6wbKttKvXWD8Ybvn2I44cibicI2aBQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+    ​	
+
+  - 解决了 正负样本不平衡、容易学习的样本和难学习样本的不平衡问题，使得模型更能学习到该学习的内容。
+
+## <span id="head17"> 深度度量学习</span>
 
 - triplet loss
 
 
 
-# <span id="head17">CV note</span>
+# <span id="head18">CV note</span>
 
-## <span id="head18"> 分组卷积</span>
+## <span id="head19"> 分组卷积</span>
 
 
 
-## <span id="head19">空洞卷积(Dilated Convolution)</span>
+## <span id="head20">空洞卷积(Dilated Convolution)</span>
 
-## <span id="head20"> FPN（特征金字塔网络)</span>
+## <span id="head21"> FPN（特征金字塔网络)</span>
 
 - 先下采样得到多层特征，用深层特征与做上采样，与之前同等大小的底层feature融合，因此金字塔结构可以既包含底层语义又包含高级语义
 - https://zhuanlan.zhihu.com/p/397293649
 
-## <span id="head21"> 金字塔与SSD的区别</span>
+## <span id="head22"> 金字塔与SSD的区别</span>
 
 - 金字塔是多个不同层的特征融合成一个size，SSD是不融合，直接用多个size去做预测
 
@@ -386,4 +412,3 @@ class BatchNorm(nn.Module):
 
 
 
-## 1111
