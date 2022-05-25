@@ -15,11 +15,12 @@
 	- [ BN](#head15)
 	- [ Loss函数](#head16)
 	- [ 深度度量学习](#head17)
-- [CV note](#head18)
-	- [ 分组卷积](#head19)
-	- [空洞卷积(Dilated Convolution)](#head20)
-	- [ FPN（特征金字塔网络)](#head21)
-	- [ 金字塔与SSD的区别](#head22)
+	- [ 解决样本不均衡方法](#head18)
+- [CV note](#head19)
+	- [ 分组卷积](#head20)
+	- [空洞卷积(Dilated Convolution)](#head21)
+	- [ FPN（特征金字塔网络)](#head22)
+	- [ 金字塔与SSD的区别](#head23)
 # <span id="head1"> 目录</span>
 
 # <span id="head2"><span id = "1"> 机器学习基础</span></span>
@@ -359,6 +360,28 @@ class BatchNorm(nn.Module):
 
 ## <span id="head16"> Loss函数</span>
 
+- MSE Loss（均方损失函数）
+
+  - ```python
+    loss_fn = torch.nn.MSELoss(reduce=True, size_average=True)　
+    　#这里注意一下两个入参：
+    
+    reduce = False #返回向量形式的 loss　
+    reduce = True  #返回标量形式的loss
+    size_average = True #返回 loss.mean();
+    如果 size_average = False  #返回 loss.sum()
+    ```
+
+  
+
+- Cross Entropy Loss（交叉熵损失）
+
+  - 交叉熵描述了两个概率分布之间的距离，当交叉熵越小说明二者之间越相似，反之则两者之间越不相似。
+
+    ![img](https://www.zhihu.com/equation?tex=H%28p%2Cq%29%3D-%5Csum_%7Bx%7D%28p%28x%29logq%28x%29%2B%281-p%28x%29%29log%281-q%28x%29%29%29)
+
+    
+
 - Dice Loss
 
   - Dice系数原理：一种集合相似度度量指标，通常用于计算两个样本的相似度，值阈为[0, 1]。计算公式如下：
@@ -367,7 +390,7 @@ class BatchNorm(nn.Module):
 
   - Dice Loss原理:
 
-    ![img](https://www.zhihu.com/equation?tex=Dice+%3D+1+-+%5Cfrac%7B2+%2A+%28pred+%5Cbigcap+true%29%7D%7Bpred+%5Cbigcup+true%7D)
+    ![img](https://mmbiz.qpic.cn/mmbiz_png/AIR6eRePgjPSX60xFEp8lg3jKtBVlR05wafmAiaS6PuIOGzgVvFOhH8TicgWW8Qpdj8GUud7pxSgXTR9WIoOtw4Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
   - 对正负样本严重不平衡的场景有着不错的性能
 
@@ -375,36 +398,94 @@ class BatchNorm(nn.Module):
 
   - https://www.freesion.com/article/799887071/
 
+  
+
+- Soft IoU Loss
+
+  - Iou（交并比）
+
+    ![img](https://mmbiz.qpic.cn/mmbiz_png/AIR6eRePgjPSX60xFEp8lg3jKtBVlR05E34wM1ICoMGRINPMe9Of5Q2hUZOmicIofueDUPHmTXHMguyPgygia1mQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+  - 通过 IoU 计算损失也是使用预测的概率值：
+
+    ​	![img](https://mmbiz.qpic.cn/mmbiz_png/AIR6eRePgjPSX60xFEp8lg3jKtBVlR05jaIbjF940lEzCN0ic5ceMSjZScERjWk2cYommIKnv4Ij7kzeRv5z50g/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+    其中 C 表示总的类别数。
+
+    
+
+- Weighted Loss（带权重的损失）
+
+  - 对输出概率分布向量中的每个值进行加权，即希望模型更加关注数量较少的样本，以缓解分类时存在的类别不均衡问题。
+
+    ![img](https://mmbiz.qpic.cn/mmbiz_png/AIR6eRePgjPSX60xFEp8lg3jKtBVlR05AVtWrVNx353bUibMfMrg4iaKjCzuhibRZKQA0oxA2WAxl4XOKMsHIg86A/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+    要减少假阴性样本的数量，可以增大 pos_weight；要减少假阳性样本的数量，可以减小 pos_weight。
+
+    
+
 - Focal Loss
 
   - 容易学习的样本模型可以很轻松地将其预测正确，模型只要将大量容易学习的样本分类正确，loss就可以减小很多，从而导致模型不怎么顾及难学习的样本，所以我们要想办法让模型更加关注难学习的样本。对于较难学习的样本，将 BCE Loss 修改为：
 
     ![img](https://mmbiz.qpic.cn/mmbiz_png/AIR6eRePgjPSX60xFEp8lg3jKtBVlR05b5u6kErt8FDfEDgjYMOP3RVxkN6wbKttKvXWD8Ybvn2I44cibicI2aBQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
+    $$
+    一般 \gamma = 2
+    $$
     ​	
 
   - 解决了 正负样本不平衡、容易学习的样本和难学习样本的不平衡问题，使得模型更能学习到该学习的内容。
 
+- [详解](https://mp.weixin.qq.com/s?__biz=MzIzNjc0MTMwMA==&mid=2247577739&idx=1&sn=857e16cc7f8fe1948280cc163357c829&chksm=e8d0c750dfa74e46eb9736a91022df47793c47d92fbd001c6f07252c125415be22f0a737657c&mpshare=1&srcid=0524cQ6zhkZyCZE26OB1SWoj&sharer_sharetime=1653387167819&sharer_shareid=0f803306403d0eb60321d56214c218ba&from=groupmessage&scene=1&subscene=10000&clicktime=1653387274&enterid=1653387274&ascene=1&devicetype=android-30&version=2800133d&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=ATDqh7w1CkEHlXJttHjBpM8%3D&pass_ticket=me1jZHZiEj%2FGFp500c1L7RPOZmKLDYxuKDW3M8jEhX6w5dfgUiOG17%2Br51hoLVoZ&wx_header=3)
+
+  
+
 ## <span id="head17"> 深度度量学习</span>
 
-- triplet loss
+​	目的：学习数据分布，拉近类内距离，增大类间距离，得到一个嵌入空间(embedding space)的映射。
+
+- Contractive Loss
+
+  - 由两个样本组成的样本对
+
+    ![img](https://www.zhihu.com/equation?tex=L%28x_i%2Cx_j%3Bf%29%3D%7B%5Cbf+1%7D%5C%7By_i%3Dy_j%5C%7D++%5C%7Cf_i-f_j%5C%7C_2%5E2+%2B+%7B%5Cbf+1%7D%5C%7By_i+%5Cneq+y_j%5C%7D+max%280%2C+m-%5C%7Cf_i-f_j%5C%7C_2%29%5E2)
+
+  - 当两个样本同类时，loss小，当两个样本不同类时，loss大。
+
+- Triplet Loss
+
+  - 输入为三元组，一个为anchor，成为锚点，一个为正样本，一个为负样本。
+  - ![img](https://www.zhihu.com/equation?tex=L%28x%2Cx%5E%2B%2Cx%5E-%3Bf%29%3Dmax+%5Cleft%280%2C+%5C%7Cf-f%5E%2B%5C%7C_2%5E2+-%5C%7Cf-f%5E-%5C%7C_2%5E2+%2B+m+%5Cright%29)
+
+- MS Loss
+
+  - 通过定义自相似性和相对相似性，在训练过程中更加全面地考虑了局部样本分布，从而能更高效精确的对重要样本对进行采用和加权。
+  - ![img](https://www.zhihu.com/equation?tex=L_%7BMS%7D%3D%5Cfrac%7B1%7D%7Bm%7D+%5Csum_%7Bi%3D1%7D%5Em+%5Cleft%5C%7B%5Cfrac%7B1%7D%7B%5Calpha%7Dlog%5B1%2B%5Csum_%7Bk+%5Cin+P_i%7De%5E%7B-%5Calpha%28S_%7Bik%7D-%5Clambda%29%7D%5D+%2B+%5Cfrac%7B1%7D%7B%5Cbeta%7Dlog%5B1%2B%5Csum_%7Bk+%5Cin+N_i%7De%5E%7B%5Cbeta%28S_%7Bik%7D-%5Clambda%29%7D%5D+%5Cright%5C%7D)
+
+- https://zhuanlan.zhihu.com/p/82199561
 
 
 
-# <span id="head18">CV note</span>
+## <span id="head18"> 解决样本不均衡方法</span>
 
-## <span id="head19"> 分组卷积</span>
+- 数据增强：通过对数据集做各种操作以增加数量少的样本。
+- Loss函数：采用weighted loss 或 focal loss
+- sample：采样是指对图像像素点的选择/拒绝,是一种空间操作,可以使用采样上采样或下采样)来增大或者缩小图像。
+
+# <span id="head19">CV note</span>
+
+## <span id="head20"> 分组卷积</span>
 
 
 
-## <span id="head20">空洞卷积(Dilated Convolution)</span>
+## <span id="head21">空洞卷积(Dilated Convolution)</span>
 
-## <span id="head21"> FPN（特征金字塔网络)</span>
+## <span id="head22"> FPN（特征金字塔网络)</span>
 
 - 先下采样得到多层特征，用深层特征与做上采样，与之前同等大小的底层feature融合，因此金字塔结构可以既包含底层语义又包含高级语义
 - https://zhuanlan.zhihu.com/p/397293649
 
-## <span id="head22"> 金字塔与SSD的区别</span>
+## <span id="head23"> 金字塔与SSD的区别</span>
 
 - 金字塔是多个不同层的特征融合成一个size，SSD是不融合，直接用多个size去做预测
 
