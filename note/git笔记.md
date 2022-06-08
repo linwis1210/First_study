@@ -10,9 +10,14 @@
 clip < ~/.ssh/id_rsa.pub
 ```
 
-<img src="C:\Users\JLB\AppData\Roaming\Typora\typora-user-images\image-20220520180139270.png" alt="image-20220520180139270" style="zoom:50%;" />
-
 - 打开github，在setting中添加SSH keys，克隆记得使用SSH
+
+- ```
+  git config --global user.name "linwis1210"
+  git config --global user.email "277533694@qq.com"
+  ```
+
+  
 
 - ```
   git clone 
@@ -23,7 +28,5 @@ clip < ~/.ssh/id_rsa.pub
   git status
   git push -u origin main/master
   git pull
-```
-  
-  
+  ```
 
