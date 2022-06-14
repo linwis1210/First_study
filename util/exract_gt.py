@@ -1,7 +1,6 @@
 import os
 import random
 import shutil
-import re
 
 GT_from_PATH = "./test1"
 GT_to_PATH = "./SegmentationClass1"

@@ -4,7 +4,7 @@ import os
 import re
 import sys
 
-path = r'F:\HSI\farm\test1'
+path = r'F:\HSI\seg\jpg'
 fileList = os.listdir(path)  # 待修改文件夹
 
 
@@ -16,7 +16,10 @@ for fileName in fileList:  # 遍历文件夹中所有文件
     pattern = re.findall(pat, fileName)  # 进行匹配
     if pattern == []:
         continue
-    os.rename(fileName, (fileName.split(".")[0] + '_p1.' + pattern[0]))  # 文件重新命名
+    name1 = fileName.split(".")
+    name2 = name1[0].split("_")
+    name3 = int(name2[1])
+    os.rename(fileName, (name2[0]  + "_" + str(name3) + "."+pattern[0]))  # 文件重新命名
 
 os.chdir(currentpath)  # 改回程序运行前的工作目录
 sys.stdin.flush()  # 刷新

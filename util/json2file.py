@@ -1,7 +1,7 @@
 import os
 import labelme
 
-path = "./test1/"  # path是你存放json的路径
+path = 'F:/HSI/annocations/'
 all_file = os.listdir(path)
 json_file = []
 for file in all_file:

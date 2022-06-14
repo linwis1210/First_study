@@ -10,8 +10,11 @@ import imgviz
 """
 对labelme生成的标签图片进行切割
 """
-label_dir = r"F:\HSI\seg\SegmentationClass"
+subdir = "test"
+label_dir = r"F:\HSI\seg\label"
+label_dir = os.path.join(label_dir, subdir)
 label_names = os.listdir(label_dir)
+
 
 num = 1
 for label_name in label_names:
@@ -27,7 +30,7 @@ for label_name in label_names:
     h = row // cut_size[0]
     w = col // cut_size[1]
 
-    img_path = "F:/HSI/seg/png2/" + str(num) + "_"
+    img_path = "F:/HSI/seg/datasets/labels/" + subdir + "/" + str(num) + "_"
     num = num + 1
     img_name = 0
     for i in range(h):
