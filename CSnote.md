@@ -7,6 +7,8 @@ service NetworkManager restart //没网时重启网络管理器
 ifconfig //配置SSH获取Ip地址
 ```
 
+https://m.php.cn/article/485970.html
+
 ## linux函数
 
 - open函数：

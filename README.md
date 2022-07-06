@@ -489,7 +489,7 @@ class BatchNorm(nn.Module):
 
 - 金字塔是多个不同层的特征融合成一个size，SSD是不融合，直接用多个size去做预测
 
-
+## 
 
 
 
