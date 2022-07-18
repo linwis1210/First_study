@@ -28,5 +28,9 @@ clip < ~/.ssh/id_rsa.pub
   git status
   git push -u origin main/master
   git pull
+  
+  # 添加标签
+  git tag v1.0.0
+  git push --tag
   ```
 
