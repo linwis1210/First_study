@@ -32,5 +32,9 @@ clip < ~/.ssh/id_rsa.pub
   # 添加标签
   git tag v1.0.0
   git push --tag
+  
+  # 删除标签
+  git tag -d tagName
+  git push origin :refs/tags/tagName 
   ```
 
